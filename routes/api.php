@@ -12,6 +12,7 @@ use App\Http\Controllers\TaskAssignmentController;
 use App\Http\Controllers\TaskStatusHistoryController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController; // Import the UserController
 
 /*
 |--------------------------------------------------------------------------
@@ -44,16 +45,22 @@ Route::prefix('v1')->group(function () {
 
         // Task routes
         Route::apiResource('tasks', TaskController::class);
-        Route::post('/tasks/{id}/update-status', [TaskController::class, 'updateStatus']);
+        Route::put('/tasks/{id}/update-status', [TaskController::class, 'updateStatus']);
+
 
         // Task assignment routes
         Route::post('/tasks/{taskId}/assign', [TaskAssignmentController::class, 'assignTask']);
+        Route::get('/my-assigned-tasks', [TaskAssignmentController::class, 'getMyAssignedTasks']);
         Route::get('/assigned-tasks', [TaskAssignmentController::class, 'getAssignedTasks']);
+
 
         // Task status history routes
         Route::get('/tasks/{taskId}/status-history', [TaskStatusHistoryController::class, 'getStatusHistory']);
 
         // Activity log routes
         Route::get('/tasks/{taskId}/activity-logs', [ActivityLogController::class, 'getActivityLogs']);
+
+        // User routes
+        Route::get('/users', [UserController::class, 'index']);
     });
 });

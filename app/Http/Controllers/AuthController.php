@@ -37,11 +37,11 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['Kredensial yang diberikan tidak benar.'],
+                'email' => ['Email/Password yang dimasukkan tidak benar.'],
             ]);
         }
 
-        return response()->json(['user' => $user, 'token' => $user->createToken('auth_token')->plainTextToken]);
+        return response()->json(['user' => $user, 'message' => 'Berhasil Login', 'token' => $user->createToken('auth_token')->plainTextToken]);
     }
 
     public function logout(Request $request)

@@ -52,4 +52,12 @@ class TaskAssignmentController extends Controller
             ->get();
         return response()->json(['tasks' => $tasks]);
     }
+
+    public function getMyAssignedTasks()
+    {
+        $tasks = TaskAssignment::where('assigned_by', Auth::id())
+            ->with('task')
+            ->get();
+        return response()->json(['tasks' => $tasks]);
+    }
 }
